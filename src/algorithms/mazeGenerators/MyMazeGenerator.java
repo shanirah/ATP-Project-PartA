@@ -25,6 +25,8 @@ public class MyMazeGenerator extends AMazeGenerator {
             if (legalWall(newMaze, chosen)) {
                 newMaze.getMatrix()[chosen.wall.getRowIndex()][chosen.wall.getColumnIndex()] = 0; // make the wall a passage
                 // check if positionA or positionB is the visited one.
+                if (!inBorders(chosen.positionB.getRowIndex(), chosen.positionB.getColumnIndex(), newMaze.getRows(), newMaze.getColumns()) || !inBorders(chosen.positionA.getRowIndex(), chosen.positionA.getColumnIndex(), newMaze.getRows(), newMaze.getColumns()))
+                    walls = addNeighborWalls(newMaze, chosen.getWall(), walls);
                 if (inBorders(chosen.positionB.getRowIndex(), chosen.positionB.getColumnIndex(), newMaze.getRows(), newMaze.getColumns()) && newMaze.getMatrix()[chosen.positionB.getRowIndex()][chosen.positionB.getColumnIndex()] == 1)
                 {
                     newMaze.getMatrix()[chosen.positionB.getRowIndex()][chosen.positionB.getColumnIndex()] = 0;
