@@ -9,4 +9,10 @@ public interface ISearchable {
     AState getGoalState();
 
     ArrayList<AState> getAllSuccessors(AState e);
+
+    boolean isVisited(AState e);
+
+    void setVisited(AState e);
+
+    void newSearch();
 }

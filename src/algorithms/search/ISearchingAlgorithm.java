@@ -9,4 +9,7 @@ public interface ISearchingAlgorithm {
     String getName();
 
     int getNumberOfNodesEvaluated();
+
+    void initialize(ISearchable s);
 }
+

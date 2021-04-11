@@ -11,19 +11,20 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
      */
     @Override
     public AState search(ISearchable s) {
+        initialize(s);
         AState current = s.getStartState();
         openList.add(current); // add start state to the queue
-        visitedStates.add(current);
+        s.setVisited(current);
         while (!openList.isEmpty()) {
             AState popped = popOpenList(); // pop the first state in the queue
             if (popped.samePosition(s.getGoalState()))
                 return popped; // there is no need to continue
             for (AState state : s.getAllSuccessors(popped)) {
-                if (!isVisitedState(visitedStates,state)) {
+                if (!s.isVisited(state)) {
                     state.setCameFrom(popped);
                     updateCost(state);
                     openList.add(state);
-                    visitedStates.add(state);
+                    s.setVisited(state);
                 }
             }
         }

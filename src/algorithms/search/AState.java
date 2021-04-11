@@ -36,5 +36,5 @@ public abstract class AState {
 
     protected abstract boolean samePosition (AState s);
 
-    }
+}
 

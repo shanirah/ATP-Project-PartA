@@ -10,10 +10,10 @@ public class BestFirstSearch extends BreadthFirstSearch{
     @Override
     protected void updateCost(AState state) {
         if (state.getState() == "up" || state.getState() == "down" || state.getState() == "left" || state.getState() == "right"){
-            state.setCost(state.getCameFrom().getCost()+1);
+            state.setCost(state.getCameFrom().getCost() + 1);
         }
         else{
-            state.setCost(state.getCameFrom().getCost()+1.5);
+            state.setCost(state.getCameFrom().getCost() + 1.5);
         }
     }
 

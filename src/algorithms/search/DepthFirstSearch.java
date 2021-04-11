@@ -1,5 +1,7 @@
 package algorithms.search;
 
+import java.util.ArrayList;
+
 public class DepthFirstSearch extends ASearchingAlgorithm {
     /**
      * searching in specific problem according to dfs algorithm
@@ -8,21 +10,22 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
      */
     @Override
     public AState search(ISearchable s) {
+        initialize(s);
         AState current = s.getStartState();
-        this.visitedStates.add(current); // start state is visited
+        s.setVisited(current); // start state is visited
         for (AState state : s.getAllSuccessors(current)) {
             state.setCameFrom(current);
             openStack.push(state); // push start state successors to the stack
-            this.visitedStates.add(state);
+            s.setVisited(state);
         }
         while (!openStack.isEmpty()) {
             AState popped = popOpenStack(); // pop the first state in the stack
             if (popped.samePosition(s.getGoalState()))
                 return popped; // there is no need to continue
             for (AState state : s.getAllSuccessors(popped)) {
-                if (!isVisitedState(visitedStates,state)){
+                if (!s.isVisited(state)){
                     state.setCameFrom(popped);
-                    this.visitedStates.add(state);
+                    s.setVisited(state);
                     openStack.push(state);
                 }
             }
