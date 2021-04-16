@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public interface ISearchable {
 
-    AState getStartState();
+    AState getStartState() throws Exception;
 
-    AState getGoalState();
+    AState getGoalState() throws Exception;
 
-    ArrayList<AState> getAllSuccessors(AState e);
+    ArrayList<AState> getAllSuccessors(AState e) throws Exception;
 
     boolean isVisited(AState e);
 

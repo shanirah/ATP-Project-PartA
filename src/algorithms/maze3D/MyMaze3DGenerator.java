@@ -17,7 +17,10 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @return finished maze
      */
     @Override
-    public Maze3D generate(int depth, int row, int column) {
+    public Maze3D generate(int depth, int row, int column) throws Exception {
+        if (depth <=1 || row <=1 || column <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         Maze3D newMaze = generateEmptyOrFull(depth, row, column, 1);
         Position3D curr = new Position3D(newMaze.getStartPosition().getDepthIndex(), newMaze.getStartPosition().getRowIndex(), newMaze.getStartPosition().getColumnIndex());
         newMaze.getMap()[curr.getDepthIndex()][curr.getRowIndex()][curr.getColumnIndex()] = 0;
@@ -54,7 +57,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
      * @param walls list of existed walls
      * @return updated list of walls after the insertions
      */
-    private ArrayList<Wall> addNeighborWalls (Maze3D m, Position3D curr, ArrayList<Wall> walls){
+    private ArrayList<Wall> addNeighborWalls (Maze3D m, Position3D curr, ArrayList<Wall> walls) throws Exception {
         if (inBorders(curr.getDepthIndex(),curr.getRowIndex()-1,curr.getColumnIndex(), m.getDepth(), m.getRows(), m.getColumns())){
             Wall up = new Wall(curr, new Position3D(curr.getDepthIndex(),curr.getRowIndex()-1, curr.getColumnIndex()), new Position3D(curr.getDepthIndex(), curr.getRowIndex()-2, curr.getColumnIndex()));
             walls.add(up);

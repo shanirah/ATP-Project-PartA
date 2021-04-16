@@ -8,7 +8,7 @@ public class Maze3DState extends AState {
 
     Position3D position3D;
 
-    public Maze3DState(String state, Maze3D maze,int depth, int row, int col) {
+    public Maze3DState(String state, Maze3D maze,int depth, int row, int col) throws Exception {
         super(state);
         position3D = new Position3D(depth,row,col);
     }

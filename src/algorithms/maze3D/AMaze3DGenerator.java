@@ -1,8 +1,6 @@
 package algorithms.maze3D;
 
-import algorithms.mazeGenerators.Maze;
-
-public abstract class AMaze3DGenerator implements IMazeGenerator3D{
+public abstract class AMaze3DGenerator implements IMaze3DGenerator {
     /**
      * measuring the time of an action
      * @param depth the depth of the maze
@@ -10,7 +8,10 @@ public abstract class AMaze3DGenerator implements IMazeGenerator3D{
      * @param column the number of columns in the maze
      * @return the time
      */
-    public long measureAlgorithmTimeMillis(int depth, int row, int column){
+    public long measureAlgorithmTimeMillis(int depth, int row, int column) throws Exception {
+        if (depth <=1 || row <=1 || column <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         long start;
         long end;
         start = System.currentTimeMillis();
@@ -27,7 +28,7 @@ public abstract class AMaze3DGenerator implements IMazeGenerator3D{
      * @param fill the value that all the cells in the maze wil get (0/1)
      * @return a new maze filled with ones or with zeros.
      */
-    protected Maze3D generateEmptyOrFull(int depth, int rows, int columns, int fill) {
+    protected Maze3D generateEmptyOrFull(int depth, int rows, int columns, int fill) throws Exception {
         Maze3D newMaze;
         newMaze = new Maze3D(depth, rows, columns);
         int[][][] mat = newMaze.getMap();

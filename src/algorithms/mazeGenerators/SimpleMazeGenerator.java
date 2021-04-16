@@ -11,7 +11,10 @@ public class SimpleMazeGenerator extends AMazeGenerator {
      * @param columns - the number of columns in the maze
      * @return the maze that was created
      **/
-    public Maze generate(int rows, int columns){
+    public Maze generate(int rows, int columns) throws Exception {
+        if (rows <=1 || columns <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         Maze newMaze;
         newMaze = generateEmptyOrFull (rows, columns, 1); //creating a maze full of walls
         Position curr = new Position(newMaze.getStartPosition().getColumnIndex(), newMaze.getStartPosition().getRowIndex());

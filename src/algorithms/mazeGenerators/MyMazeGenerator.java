@@ -11,7 +11,10 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @return finished maze
      */
     @Override
-    public Maze generate(int rows, int columns) {
+    public Maze generate(int rows, int columns) throws Exception {
+        if (rows <=1 || columns <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         Maze newMaze = generateEmptyOrFull (rows, columns, 1); // create maze full of walls
         Position curr = new Position(newMaze.getStartPosition().getColumnIndex(), newMaze.getStartPosition().getRowIndex());
         newMaze.getMatrix()[curr.getRowIndex()][curr.getColumnIndex()] = 0; // change the start position to 0
