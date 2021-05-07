@@ -5,6 +5,7 @@ public abstract class AState {
     private String state;
     private double cost = 0;
     private AState cameFrom;
+    private static int order = 0;
 
     public AState(String state) {
         this.state = state;
@@ -36,5 +37,12 @@ public abstract class AState {
 
     protected abstract boolean samePosition (AState s);
 
+    public static int getOrder() {
+        return order;
+    }
+
+    public static void setOrder(int order) {
+        AState.order = order;
+    }
 }
 

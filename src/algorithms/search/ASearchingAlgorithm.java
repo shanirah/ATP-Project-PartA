@@ -66,7 +66,10 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
      * @return solution to the problem
      */
     @Override
-    public Solution solve(ISearchable problem) {
+    public Solution solve(ISearchable problem) throws Exception {
+        if (problem == null){
+            throw new Exception("ISearchable should not be null");
+        }
         AState goal = search(problem); // the function search solves problem
         ArrayList<AState> solPath = new ArrayList<AState>();
         AState current = goal;

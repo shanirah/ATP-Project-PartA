@@ -10,13 +10,17 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
      * @return goal state of the problem
      */
     @Override
-    public AState search(ISearchable s) {
+    public AState search(ISearchable s) throws Exception {
+        if (s == null){
+            throw new Exception("ISearchable should not be null");
+        }
         initialize(s);
         AState current = s.getStartState();
         openList.add(current); // add start state to the queue
         s.setVisited(current);
         while (!openList.isEmpty()) {
             AState popped = popOpenList(); // pop the first state in the queue
+            AState.setOrder(AState.getOrder() + 1);
             if (popped.samePosition(s.getGoalState()))
                 return popped; // there is no need to continue
             for (AState state : s.getAllSuccessors(popped)) {
@@ -36,7 +40,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
      * @param state the state we want to update
      */
     protected void updateCost(AState state){
-        state.setCost(0);
+        state.setCost(AState.getOrder() + 1);
     }
 
 

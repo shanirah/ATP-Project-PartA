@@ -8,7 +8,10 @@ public class Maze {
     private Position goalPosition;
 
 
-    public Maze(int rows, int columns) {
+    public Maze(int rows, int columns) throws Exception {
+        if (rows <=1 || columns <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         this.rows = rows;
         this.columns = columns;
         this.matrix = new int[rows][columns];
@@ -31,6 +34,7 @@ public class Maze {
     public Position getGoalPosition() {
         return goalPosition;
     }
+
     public void setRows(int rows) {
         this.rows = rows;
     }

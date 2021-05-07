@@ -8,7 +8,10 @@ public class SearchableMaze implements ISearchable {
     private Maze maze;
     private int[][] visitedMat;
 
-    public SearchableMaze(Maze maze) {
+    public SearchableMaze(Maze maze) throws Exception {
+        if (maze == null){
+            throw new Exception("maze can't be null");
+        }
         this.maze = maze;
         visitedMat = new int[maze.getRows()][maze.getColumns()];
         this.newSearch();
@@ -45,7 +48,10 @@ public class SearchableMaze implements ISearchable {
      * @return updated arraylist with all the successors
      */
     @Override
-    public ArrayList<AState> getAllSuccessors(AState e) {
+    public ArrayList<AState> getAllSuccessors(AState e) throws Exception {
+        if (e == null){
+            throw new Exception("state can't be null");
+        }
         MazeState ms = (MazeState) e;
         int checkUpLeft = 0;
         int checkDownRight = 0;

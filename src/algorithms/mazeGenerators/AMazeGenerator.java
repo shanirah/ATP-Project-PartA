@@ -2,7 +2,7 @@ package algorithms.mazeGenerators;
 
 public abstract class AMazeGenerator implements IMazeGenerator {
 
-    public abstract Maze generate(int rows, int columns);
+    public abstract Maze generate(int rows, int columns) throws Exception;
 
     /**
      * measuring the time of an action
@@ -10,7 +10,10 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param columns the number of columns in the maze
      * @return the time
      */
-    public long measureAlgorithmTimeMillis(int rows, int columns) {
+    public long measureAlgorithmTimeMillis(int rows, int columns) throws Exception {
+        if (rows <=1 || columns <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         long start;
         long end;
         start = System.currentTimeMillis();
@@ -40,7 +43,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param fill the value that all the cells in the maze wil get (0/1)
      * @return a new maze filled with ones or with zeros.
      */
-    protected Maze generateEmptyOrFull(int rows, int columns, int fill) {
+    protected Maze generateEmptyOrFull(int rows, int columns, int fill) throws Exception {
         Maze newMaze;
         newMaze = new Maze(rows, columns);
         int[][] mat = newMaze.getMatrix();

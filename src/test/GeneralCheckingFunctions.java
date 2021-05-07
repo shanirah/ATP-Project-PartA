@@ -7,4 +7,10 @@ public class GeneralCheckingFunctions {
         return weChoseToDoTheMaze3DAssignment;
     }
 
+    public static String getGithubLink(){
+        String githubLink = "https://github.com/shanirah/ATP-Project-PartA";
+        return githubLink;
+    }
+
+
 }

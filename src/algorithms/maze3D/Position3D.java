@@ -6,8 +6,11 @@ public class Position3D extends Position {
 
     private int depthIndex;
 
-    public Position3D(int depthIndex, int rowIndex, int columnIndex) {
+    public Position3D(int depthIndex, int rowIndex, int columnIndex) throws Exception {
         super(columnIndex, rowIndex);
+        if (depthIndex < 0 || rowIndex < 0 || columnIndex < 0){
+            throw new Exception("illegal index");
+        }
         this.depthIndex = depthIndex;
     }
 

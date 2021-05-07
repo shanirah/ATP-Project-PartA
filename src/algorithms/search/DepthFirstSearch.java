@@ -9,7 +9,10 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
      * @return the goal state of the problem
      */
     @Override
-    public AState search(ISearchable s) {
+    public AState search(ISearchable s) throws Exception {
+        if (s == null){
+            throw new Exception("ISearchable should not be null");
+        }
         initialize(s);
         AState current = s.getStartState();
         s.setVisited(current); // start state is visited

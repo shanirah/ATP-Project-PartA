@@ -12,7 +12,10 @@ public class Maze3D {
     private Position3D startPosition;
     private Position3D goalPosition;
 
-    public Maze3D(int depth, int rows, int columns) {
+    public Maze3D(int depth, int rows, int columns) throws Exception {
+        if (depth <=1 || rows <=1 || columns <=1){
+            throw new Exception("minimum size is 2X2");
+        }
         this.rows = rows;
         this.columns = columns;
         this.depth = depth;

@@ -11,19 +11,22 @@ public class SearchableMaze3D implements ISearchable {
     private int[][][] visitedMat;
 
 
-    public SearchableMaze3D(Maze3D maze) {
+    public SearchableMaze3D(Maze3D maze) throws Exception {
+        if (maze == null){
+            throw new Exception("maze can't be null");
+        }
         this.maze = maze;
         visitedMat = new int[maze.getDepth()][maze.getRows()][maze.getColumns()];
         this.newSearch();
     }
 
     @Override
-    public AState getStartState() {
+    public AState getStartState() throws Exception {
         return new Maze3DState("Start", maze, maze.getStartPosition().getDepthIndex(),maze.getStartPosition().getRowIndex(),maze.getStartPosition().getColumnIndex());
     }
 
     @Override
-    public AState getGoalState() {
+    public AState getGoalState() throws Exception {
         return new Maze3DState("Goal", maze, maze.getGoalPosition().getDepthIndex(),maze.getGoalPosition().getRowIndex(),maze.getGoalPosition().getColumnIndex());
     }
 
@@ -47,7 +50,10 @@ public class SearchableMaze3D implements ISearchable {
      * @return updated arraylist with all the successors
      */
     @Override
-    public ArrayList<AState> getAllSuccessors(AState e) {
+    public ArrayList<AState> getAllSuccessors(AState e) throws Exception {
+        if (e == null){
+            throw new Exception("state can't be null");
+        }
         Maze3DState ms = (Maze3DState)e;
         ArrayList<AState> successors = new ArrayList<AState>();
         if (possiblePass(ms.getPosition3D().getDepthIndex(), ms.getPosition3D().getRowIndex() - 1, ms.getPosition3D().getColumnIndex())) {
