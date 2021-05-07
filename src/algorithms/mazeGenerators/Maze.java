@@ -74,4 +74,47 @@ public class Maze {
         return matrix;
     }
 
+    public byte[] toByteArray(){
+        byte[] byteArray = new byte[rows * columns + 10];
+        // represent number of columns
+        byteArray[0] = (byte) (int)Math.floor((double)this.getColumns() / 10);
+        byteArray[1] = (byte) (this.getColumns() % 10);
+
+        // represent row index and column index of start position
+        byteArray[2] = (byte) (int)Math.floor((double)this.getStartPosition().getRowIndex() / 10);
+        byteArray[3] = (byte) (this.getStartPosition().getRowIndex() % 10);
+        byteArray[4] = (byte) (int)Math.floor((double)this.getStartPosition().getColumnIndex() / 10);
+        byteArray[5] = (byte) (this.getStartPosition().getColumnIndex() % 10);
+
+        // represent row index and column index of goal position
+        byteArray[6] = (byte) (int)Math.floor((double)this.getGoalPosition().getRowIndex() / 10);
+        byteArray[7] = (byte) (this.getGoalPosition().getRowIndex() % 10);
+        byteArray[8] = (byte) (int)Math.floor((double)this.getGoalPosition().getColumnIndex() / 10);
+        byteArray[9] = (byte) (this.getGoalPosition().getColumnIndex() % 10);
+
+        for (int x = 0; x < rows; x++){
+            for (int y = 0; y < columns; y++){
+                byteArray[(columns * x + y) + 10] = (byte) this.getMatrix()[x][y];
+            }
+        }
+        return byteArray;
+    }
+
+    public Maze(byte[] byteArray) {
+        this.columns = byteArray[0] * 10 + byteArray[1];
+        this.rows = (byteArray.length - 10) / columns;
+        this.matrix = new int[rows][columns];
+        int startCol = byteArray[4] * 10 + byteArray[5];
+        int startRow = byteArray[2] * 10 + byteArray[3];
+        this.startPosition = new Position(startCol, startRow);
+        int goalCol = byteArray[8] * 10 + byteArray[9];
+        int goalRow = byteArray[6] * 10 + byteArray[7];
+        this.goalPosition = new Position(goalCol, goalRow);
+
+        for (int x = 0; x < rows; x++) {
+            for (int y = 0; y < columns; y++) {
+                this.getMatrix()[x][y] = (int) byteArray[(columns * x + y) + 10];
+            }
+        }
+    }
 }
