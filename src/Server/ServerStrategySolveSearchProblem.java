@@ -19,7 +19,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
     @Override
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
+            Path m = Paths.get("java.io.tmpdir");
+            Path ppath = Files.createDirectories(m);
             String tempDirectoryPath = System.getProperty("java.io.tmpdir");
+            File directory = new File(tempDirectoryPath);
             int numFiles = 0;
             boolean solved = false;
 
@@ -33,8 +36,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             // remove the file mazeToCheck
             File[] f = new File("java.io.tmpdir").listFiles();
             for (File file: f) {
-                if (file.getName().equals("MazeToCheck.maze"))
-                    file.delete();
+                if (file.exists()) {
+                    if (file.getName().equals("MazeToCheck.maze"))
+                        file.delete();
+                }
             }
 
             File[] files = new File("java.io.tmpdir").listFiles();
@@ -55,11 +60,13 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             byte[] mazeBytesCheck = Files.readAllBytes(Paths.get(path));
             String foundMazeFile = "";
             for (File file : files){
-                String currentPath = "java.io.tmpdir" + File.separator + file.getName();
-                byte[] currentFile = Files.readAllBytes(Paths.get(currentPath));
-                if (Arrays.equals(mazeBytesCheck, currentFile)){
-                    solved = true;
-                    foundMazeFile = file.getName();
+                if (file.exists()) {
+                    String currentPath = "java.io.tmpdir" + File.separator + file.getName();
+                    byte[] currentFile = Files.readAllBytes(Paths.get(currentPath));
+                    if (Arrays.equals(mazeBytesCheck, currentFile)) {
+                        solved = true;
+                        foundMazeFile = file.getName();
+                    }
                 }
             }
 
@@ -67,7 +74,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             if (!solved) {
                 // find solution
                 SearchableMaze searchableMaze = new SearchableMaze(maze);
-                BreadthFirstSearch searcher = new BreadthFirstSearch();
+                Class cl = Class.forName("algorithms.search." + Server.prop.getProperty("mazeSearchingAlgorithm"));
+                java.lang.reflect.Constructor con = cl.getConstructor();
+                ASearchingAlgorithm searcher = (ASearchingAlgorithm)con.newInstance();
                 Solution solution = searcher.solve(searchableMaze);
                 ArrayList<AState> solutionPath = solution.getSolutionPath();
 
@@ -146,5 +155,3 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         }
     }
 }
-
-

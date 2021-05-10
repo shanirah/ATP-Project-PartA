@@ -1,8 +1,11 @@
 package Server;
 
 import IO.MyCompressorOutputStream;
+import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.SimpleMazeGenerator;
+import com.sun.corba.se.spi.activation.Activator;
+import algorithms.mazeGenerators.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,8 +22,12 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
                 int[] mazeDim = (int[]) fromClient.readObject();
 
                 // generate maze according to the maze dimensions
-                SimpleMazeGenerator sGenerator = new SimpleMazeGenerator();
+                Class cl = Class.forName("algorithms.mazeGenerators." + Server.prop.getProperty("mazeGeneratingAlgorithm"));
+                java.lang.reflect.Constructor con = cl.getConstructor();
+                AMazeGenerator sGenerator = (AMazeGenerator)con.newInstance();
+
                 Maze newMaze = sGenerator.generate(mazeDim[0], mazeDim[1]);
+
 
                 // compress the maze
                 MyCompressorOutputStream compressor = new MyCompressorOutputStream(byteArrayOutputStream);
